@@ -1,22 +1,23 @@
-FROM nginx:1.17-alpine
+FROM php:7-apache
 
 ENV rompr_version=1.32
 
-RUN apk --no-cache upgrade
-RUN apk --no-cache add \
- php7-curl \
- php7-sqlite3 \
- php7-gd \
- php7-json \
- php7-xml \
- php7-mbstring \
- php7-fpm \
- imagemagick \
- unzip
+RUN apt-get update && \
+    apt-get -y dist-upgrade && \
+    apt-get -y install \
+    imagemagick \
+    unzip \
+    wget && \
+    apt-get clean
 
-ADD ./nginx.conf /etc/nginx/conf.d/default.conf
-RUN mkdir /rompr &&\
-    cd /rompr && \
+RUN cd /var/www/html && \
     wget https://github.com/fatg3erman/RompR/releases/download/${rompr_version}/rompr-${rompr_version}.zip && \
     unzip rompr-${rompr_version}.zip && \
-    rm rompr-${rompr_version}.zip
+    mv rompr/* . && \
+    mkdir prefs && \
+    chown -R www-data.www-data prefs && \
+    mkdir albumart && \
+    chown -R www-data.www-data albumart && \
+    rm rompr-${rompr_version}.zip 
+
+#ADD ./nginx.conf /etc/nginx/conf.d/site.conf
