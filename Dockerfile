@@ -17,6 +17,6 @@ RUN apk --no-cache add \
 ADD ./nginx.conf /etc/nginx/conf.d/default.conf
 RUN mkdir /rompr &&\
     cd /rompr && \
-    wget -O - https://github.com/fatg3erman/RompR/releases/download/${rompr_version}}/rompr-${rompr_version}.zip && \
-    unzip rompr-${rompr_version}}.zip && \
-    rm rompr-${rompr_version}}.zip
+    wget https://github.com/fatg3erman/RompR/releases/download/${rompr_version}/rompr-${rompr_version}.zip && \
+    unzip rompr-${rompr_version}.zip && \
+    rm rompr-${rompr_version}.zip
