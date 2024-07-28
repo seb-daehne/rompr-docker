@@ -1,6 +1,6 @@
-FROM php:7-apache
+FROM php:apache
 
-ENV rompr_version=1.32
+ENV rompr_version=2.16
 
 RUN apt-get update && \
     apt-get -y dist-upgrade && \
